@@ -11,16 +11,16 @@
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
 
 body{
-  height:100vh;
+  min-height:100vh;
   background:linear-gradient(135deg,#ff8fcf,#ff5f9e);
   display:flex;
   justify-content:center;
   align-items:center;
   color:white;
-  overflow:hidden;
+  overflow-x:hidden;
 }
 
-/* hearts */
+/* floating hearts */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -39,7 +39,7 @@ body{
   align-items:center;
   text-align:center;
   gap:20px;
-  padding:22px;
+  padding:24px 16px 40px;
 }
 .screen.active{display:flex}
 
@@ -52,13 +52,13 @@ h1,h2{
   from{text-shadow:0 0 8px #fff}
   to{text-shadow:0 0 16px #ffd1e8}
 }
-p{font-size:17px;max-width:340px;line-height:1.6}
+p{font-size:17px;max-width:360px;line-height:1.6}
 
 /* buttons */
 button{
-  padding:14px 36px;
+  padding:14px 38px;
   border:none;
-  border-radius:35px;
+  border-radius:40px;
   background:white;
   color:#ff2f7d;
   font-size:16px;
@@ -75,33 +75,46 @@ button:hover{transform:scale(1.08)}
   filter:drop-shadow(0 15px 25px rgba(0,0,0,.3));
 }
 
-/* PHOTOS – bigger + more spacing */
-.grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:22px;                 /* more distance */
+/* PHOTO CARD LIST */
+.photo-list{
+  display:flex;
+  flex-direction:column;
+  gap:32px;
   margin-top:10px;
+  width:100%;
+  align-items:center;
 }
-.photo{
-  width:150px;              /* bigger size */
-  height:190px;
-  object-fit:cover;
-  border-radius:20px;
-  border:3px solid rgba(255,255,255,.4);
+
+.photo-card{
+  width:88vw;
+  max-width:360px;
+  background:rgba(255,255,255,.18);
+  border-radius:30px;
+  padding:14px;
+  box-shadow:0 18px 40px rgba(0,0,0,.25);
   transition:.3s;
   cursor:pointer;
 }
-.photo.selected{
-  border:3px solid #fff;
-  transform:scale(1.08);
+
+.photo-card img{
+  width:100%;
+  height:240px;
+  object-fit:cover;
+  border-radius:22px;
 }
 
-/* GIFTS – premium buttons */
+.photo-card.selected{
+  transform:scale(1.04);
+  background:rgba(255,255,255,.28);
+  box-shadow:0 20px 45px rgba(0,0,0,.3);
+}
+
+/* gifts */
 .gifts{
   display:grid;
   grid-template-columns:repeat(2,1fr);
   gap:22px;
-  margin-top:15px;
+  margin-top:10px;
 }
 .gift{
   background:linear-gradient(135deg,#ffe0ec,#ffc1da);
@@ -116,7 +129,6 @@ button:hover{transform:scale(1.08)}
 }
 .gift:hover{
   transform:scale(1.08);
-  box-shadow:0 15px 35px rgba(0,0,0,.25);
 }
 
 /* NO button */
@@ -138,24 +150,36 @@ button:hover{transform:scale(1.08)}
   <button onclick="next(1)">Next ➡️</button>
 </div>
 
-<!-- PAGE 2 : PHOTOS -->
+<!-- PAGE 2 : PHOTO CARDS -->
 <div class="screen" id="p2">
   <h1>Our Memories ✨</h1>
   <p>Rashiii, ek photo select karo 😌</p>
 
-  <div class="grid">
-    <img src="https://i.ibb.co/m5TyFjVN/011d8edfbb7d76f12904b8a7db76f330.jpg" class="photo" onclick="selectPhoto(this)">
-    <img src="https://i.ibb.co/m546CD4V/1e393e438bd5a44c169bda106b8dd03a.jpg" class="photo" onclick="selectPhoto(this)">
-    <img src="https://i.ibb.co/ZzbT1bGj/f6b0a5f9b6f440ce3173db13ab000b32.jpg" class="photo" onclick="selectPhoto(this)">
-    <img src="https://i.ibb.co/27nHfvH9/aeec4441792cb587d901f2e5643f8d77.jpg" class="photo" onclick="selectPhoto(this)">
-    <img src="https://i.ibb.co/Z6H5SpCB/35212c676c9d799d3f0f3876ee36090f.jpg" class="photo" onclick="selectPhoto(this)">
-    <img src="https://i.ibb.co/Zzv9GRFN/e023fda38ac6575b39d20e763ea7a1b1.jpg" class="photo" onclick="selectPhoto(this)">
+  <div class="photo-list">
+    <div class="photo-card" onclick="selectCard(this)">
+      <img src="https://i.ibb.co/m5TyFjVN/011d8edfbb7d76f12904b8a7db76f330.jpg">
+    </div>
+    <div class="photo-card" onclick="selectCard(this)">
+      <img src="https://i.ibb.co/m546CD4V/1e393e438bd5a44c169bda106b8dd03a.jpg">
+    </div>
+    <div class="photo-card" onclick="selectCard(this)">
+      <img src="https://i.ibb.co/ZzbT1bGj/f6b0a5f9b6f440ce3173db13ab000b32.jpg">
+    </div>
+    <div class="photo-card" onclick="selectCard(this)">
+      <img src="https://i.ibb.co/27nHfvH9/aeec4441792cb587d901f2e5643f8d77.jpg">
+    </div>
+    <div class="photo-card" onclick="selectCard(this)">
+      <img src="https://i.ibb.co/Z6H5SpCB/35212c676c9d799d3f0f3876ee36090f.jpg">
+    </div>
+    <div class="photo-card" onclick="selectCard(this)">
+      <img src="https://i.ibb.co/Zzv9GRFN/e023fda38ac6575b39d20e763ea7a1b1.jpg">
+    </div>
   </div>
 
   <button id="photoBtn" disabled onclick="next(2)">Next ❤️</button>
 </div>
 
-<!-- PAGE 3 : GIFTS -->
+<!-- PAGE 3 -->
 <div class="screen" id="p3">
   <h1>One Special Gift 🎁</h1>
   <p>Sirf ek hi sahi raasta hai 😉</p>
@@ -168,7 +192,7 @@ button:hover{transform:scale(1.08)}
   </div>
 </div>
 
-<!-- PAGE 4 : PROPOSE -->
+<!-- PAGE 4 -->
 <div class="screen" id="p4">
   <img class="gif" src="https://i.ibb.co/tPCv9HxM/ezgif-6f35f083ef105aa9.gif">
   <h1>Rashiii ❤️</h1>
@@ -178,7 +202,7 @@ button:hover{transform:scale(1.08)}
   <button id="noBtn" onmouseover="moveNoFast()" ontouchstart="moveNoFast()">No 💔</button>
 </div>
 
-<!-- PAGE 5 : LOVE LETTER -->
+<!-- PAGE 5 -->
 <div class="screen" id="letter">
   <h1>My Love Letter 💌</h1>
   <p id="letterText"></p>
@@ -191,15 +215,17 @@ function next(n){
   document.getElementById("p"+(n+1)).classList.add("active");
 }
 
-function selectPhoto(el){
-  document.querySelectorAll(".photo").forEach(p=>p.classList.remove("selected"));
-  el.classList.add("selected");
+/* photo card select */
+function selectCard(card){
+  document.querySelectorAll(".photo-card").forEach(c=>c.classList.remove("selected"));
+  card.classList.add("selected");
   document.getElementById("photoBtn").disabled=false;
 }
 
 function wrong(){ alert("Try again 😅") }
 function right(){ next(3) }
 
+/* runaway no button */
 function moveNoFast(){
   const b=document.getElementById("noBtn");
   b.style.left=Math.random()*(window.innerWidth-80)+"px";
@@ -210,15 +236,16 @@ function moveNoFast(){
 const lines=[
   "Dear Rashiii,",
   "",
-  "Jab se tum meri zindagi me aayi ho,",
-  "har din thoda zyada khoobsurat lagta hai ❤️",
+  "Tum meri zindagi ka sabse khoobsurat hissa ho ❤️",
+  "Har yaad, har pal, tumhare saath special hai.",
   "",
-  "Tum meri aadat bhi ho,",
-  "aur meri sabse pyari choice bhi 💍",
+  "Main wada karta hoon,",
+  "hamesha tumhare saath rahunga 💍",
   "",
   "— Yours Forever"
 ];
 let l=0,c=0;
+
 function showLetter(){
   document.getElementById("p4").classList.remove("active");
   document.getElementById("letter").classList.add("active");
