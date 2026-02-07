@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>For Rashiii ❤️</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif}
+
+body{
+  height:100vh;
+  background:linear-gradient(135deg,#ff8fcf,#ff5f9e);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  color:white;
+  overflow:hidden;
+}
+
+/* floating hearts */
+.heart{
+  position:fixed;
+  bottom:-20px;
+  font-size:18px;
+  animation:float 5s linear infinite;
+  opacity:.6;
+}
+@keyframes float{
+  to{transform:translateY(-120vh);opacity:0}
+}
+
+/* screens */
+.screen{
+  display:none;
+  flex-direction:column;
+  align-items:center;
+  text-align:center;
+  gap:18px;
+  padding:22px;
+}
+.screen.active{display:flex}
+
+/* text */
+h1,h2{
+  font-family:'Great Vibes',cursive;
+  animation:glow 2s ease-in-out infinite alternate;
+}
+@keyframes glow{
+  from{text-shadow:0 0 8px #fff}
+  to{text-shadow:0 0 16px #ffd1e8}
+}
+p{font-size:17px;max-width:340px;line-height:1.6}
+
+/* buttons */
+button{
+  padding:12px 30px;
+  border:none;
+  border-radius:30px;
+  background:white;
+  color:#ff2f7d;
+  font-size:16px;
+  cursor:pointer;
+}
+
+/* gif */
+.gif{
+  width:230px;
+  filter:drop-shadow(0 15px 25px rgba(0,0,0,.3));
+}
+
+/* photos */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:12px;
+}
+.photo{
+  width:95px;height:125px;
+  object-fit:cover;
+  border-radius:15px;
+  border:2px solid transparent;
+}
+.photo.selected{
+  border:2px solid #fff;
+  transform:scale(1.1);
+}
+
+/* gifts */
+.gifts{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:15px;
+}
+.gift{
+  background:rgba(255,255,255,.25);
+  padding:18px;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+/* NO button */
+#noBtn{
+  position:fixed;
+  font-size:14px;
+  padding:8px 20px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1 -->
+<div class="screen active" id="p1">
+  <img class="gif" src="https://i.ibb.co/S4Gyy2V3/ezgif-66e4ecb3e01bb550.gif">
+  <h1>For You, Rashiii ❤️</h1>
+  <p>Mujhe tumse kuch dil se kehna hai 🥺</p>
+  <button onclick="next(1)">Next ➡️</button>
+</div>
+
+<!-- PAGE 2 -->
+<div class="screen" id="p2">
+  <h1>Our Memories ✨</h1>
+  <p>Rashiii, ek photo select karo 😌</p>
+
+  <div class="grid">
+    <img src="https://i.ibb.co/m5TyFjVN/011d8edfbb7d76f12904b8a7db76f330.jpg" class="photo" onclick="selectPhoto(this)">
+    <img src="https://i.ibb.co/m546CD4V/1e393e438bd5a44c169bda106b8dd03a.jpg" class="photo" onclick="selectPhoto(this)">
+    <img src="https://i.ibb.co/ZzbT1bGj/f6b0a5f9b6f440ce3173db13ab000b32.jpg" class="photo" onclick="selectPhoto(this)">
+    <img src="https://i.ibb.co/27nHfvH9/aeec4441792cb587d901f2e5643f8d77.jpg" class="photo" onclick="selectPhoto(this)">
+    <img src="https://i.ibb.co/Z6H5SpCB/35212c676c9d799d3f0f3876ee36090f.jpg" class="photo" onclick="selectPhoto(this)">
+    <img src="https://i.ibb.co/Zzv9GRFN/e023fda38ac6575b39d20e763ea7a1b1.jpg" class="photo" onclick="selectPhoto(this)">
+  </div>
+
+  <button id="photoBtn" disabled onclick="next(2)">Next ❤️</button>
+</div>
+
+<!-- PAGE 3 -->
+<div class="screen" id="p3">
+  <h1>One Special Gift 🎁</h1>
+  <p>Sirf ek hi sahi raasta hai 😉</p>
+
+  <div class="gifts">
+    <div class="gift" onclick="wrong()">🍫 Chocolate</div>
+    <div class="gift" onclick="right()">💍 Ring</div>
+    <div class="gift" onclick="wrong()">🧸 Teddy</div>
+    <div class="gift" onclick="wrong()">🌹 Rose</div>
+  </div>
+</div>
+
+<!-- PAGE 4 -->
+<div class="screen" id="p4">
+  <img class="gif" src="https://i.ibb.co/tPCv9HxM/ezgif-6f35f083ef105aa9.gif">
+  <h1>Rashiii ❤️</h1>
+  <h2>Will you be mine forever?</h2>
+
+  <button onclick="showLetter()">Yes ❤️</button>
+  <button id="noBtn" onmouseover="moveNoFast()" ontouchstart="moveNoFast()">No 💔</button>
+</div>
+
+<!-- PAGE 5 : LOVE LETTER -->
+<div class="screen" id="letter">
+  <h1>My Love Letter 💌</h1>
+  <p id="letterText"></p>
+  <h2 id="letterEnd" style="display:none;">I Love You, Rashiii 💖</h2>
+</div>
+
+<script>
+function next(n){
+  document.getElementById("p"+n).classList.remove("active");
+  document.getElementById("p"+(n+1)).classList.add("active");
+}
+
+function selectPhoto(el){
+  document.querySelectorAll(".photo").forEach(p=>p.classList.remove("selected"));
+  el.classList.add("selected");
+  document.getElementById("photoBtn").disabled=false;
+}
+
+function wrong(){ alert("Try again 😅") }
+function right(){ next(3) }
+
+function moveNoFast(){
+  const b=document.getElementById("noBtn");
+  b.style.left=Math.random()*(window.innerWidth-80)+"px";
+  b.style.top=Math.random()*(window.innerHeight-40)+"px";
+}
+
+/* LOVE LETTER TYPING */
+const letterLines=[
+  "Dear Rashiii,",
+  "",
+  "Jab se tum meri zindagi me aayi ho,",
+  "har din thoda zyada khoobsurat lagta hai ❤️",
+  "",
+  "Tumhari smile meri kamzori hai,",
+  "aur tumhari presence meri strength.",
+  "",
+  "Main wada karta hoon,",
+  "har pal tumhara saath nibhaunga 💍",
+  "",
+  "Aaj main sirf propose nahi kar raha,",
+  "apna dil tumhe de raha hoon…",
+  "hamesha ke liye 💖",
+  "",
+  "— Yours Forever"
+];
+
+let line=0,char=0;
+
+function showLetter(){
+  document.getElementById("p4").classList.remove("active");
+  document.getElementById("letter").classList.add("active");
+
+  document.getElementById("letterText").innerHTML="";
+  document.getElementById("letterEnd").style.display="none";
+  line=0;char=0;
+  typeLetter();
+}
+
+function typeLetter(){
+  const box=document.getElementById("letterText");
+  if(line<letterLines.length){
+    if(char<letterLines[line].length){
+      box.innerHTML+=letterLines[line].charAt(char);
+      char++;
+      setTimeout(typeLetter,40);
+    }else{
+      box.innerHTML+="<br>";
+      char=0;line++;
+      setTimeout(typeLetter,500);
+    }
+  }else{
+    document.getElementById("letterEnd").style.display="block";
+  }
+}
+
+/* hearts */
+setInterval(()=>{
+  const h=document.createElement("div");
+  h.className="heart";
+  h.innerHTML="❤️";
+  h.style.left=Math.random()*100+"vw";
+  document.body.appendChild(h);
+  setTimeout(()=>h.remove(),5000);
+},400);
+</script>
+
+</body>
+</html>
