@@ -20,7 +20,7 @@ body{
   overflow:hidden;
 }
 
-/* floating hearts */
+/* hearts */
 .heart{
   position:fixed;
   bottom:-20px;
@@ -38,7 +38,7 @@ body{
   flex-direction:column;
   align-items:center;
   text-align:center;
-  gap:18px;
+  gap:20px;
   padding:22px;
 }
 .screen.active{display:flex}
@@ -56,49 +56,67 @@ p{font-size:17px;max-width:340px;line-height:1.6}
 
 /* buttons */
 button{
-  padding:12px 30px;
+  padding:14px 36px;
   border:none;
-  border-radius:30px;
+  border-radius:35px;
   background:white;
   color:#ff2f7d;
   font-size:16px;
+  font-weight:500;
   cursor:pointer;
+  box-shadow:0 10px 25px rgba(255,255,255,.35);
+  transition:.3s;
 }
+button:hover{transform:scale(1.08)}
 
 /* gif */
 .gif{
-  width:230px;
+  width:240px;
   filter:drop-shadow(0 15px 25px rgba(0,0,0,.3));
 }
 
-/* photos */
+/* PHOTOS – bigger + more spacing */
 .grid{
   display:grid;
-  grid-template-columns:repeat(3,1fr);
-  gap:12px;
+  grid-template-columns:repeat(2,1fr);
+  gap:22px;                 /* more distance */
+  margin-top:10px;
 }
 .photo{
-  width:95px;height:125px;
+  width:150px;              /* bigger size */
+  height:190px;
   object-fit:cover;
-  border-radius:15px;
-  border:2px solid transparent;
+  border-radius:20px;
+  border:3px solid rgba(255,255,255,.4);
+  transition:.3s;
+  cursor:pointer;
 }
 .photo.selected{
-  border:2px solid #fff;
-  transform:scale(1.1);
+  border:3px solid #fff;
+  transform:scale(1.08);
 }
 
-/* gifts */
+/* GIFTS – premium buttons */
 .gifts{
   display:grid;
   grid-template-columns:repeat(2,1fr);
-  gap:15px;
+  gap:22px;
+  margin-top:15px;
 }
 .gift{
-  background:rgba(255,255,255,.25);
+  background:linear-gradient(135deg,#ffe0ec,#ffc1da);
+  color:#ff2f7d;
   padding:18px;
-  border-radius:20px;
+  border-radius:25px;
+  font-size:18px;
+  font-weight:500;
   cursor:pointer;
+  box-shadow:0 12px 30px rgba(0,0,0,.2);
+  transition:.25s;
+}
+.gift:hover{
+  transform:scale(1.08);
+  box-shadow:0 15px 35px rgba(0,0,0,.25);
 }
 
 /* NO button */
@@ -120,7 +138,7 @@ button{
   <button onclick="next(1)">Next ➡️</button>
 </div>
 
-<!-- PAGE 2 -->
+<!-- PAGE 2 : PHOTOS -->
 <div class="screen" id="p2">
   <h1>Our Memories ✨</h1>
   <p>Rashiii, ek photo select karo 😌</p>
@@ -137,7 +155,7 @@ button{
   <button id="photoBtn" disabled onclick="next(2)">Next ❤️</button>
 </div>
 
-<!-- PAGE 3 -->
+<!-- PAGE 3 : GIFTS -->
 <div class="screen" id="p3">
   <h1>One Special Gift 🎁</h1>
   <p>Sirf ek hi sahi raasta hai 😉</p>
@@ -150,7 +168,7 @@ button{
   </div>
 </div>
 
-<!-- PAGE 4 -->
+<!-- PAGE 4 : PROPOSE -->
 <div class="screen" id="p4">
   <img class="gif" src="https://i.ibb.co/tPCv9HxM/ezgif-6f35f083ef105aa9.gif">
   <h1>Rashiii ❤️</h1>
@@ -188,49 +206,37 @@ function moveNoFast(){
   b.style.top=Math.random()*(window.innerHeight-40)+"px";
 }
 
-/* LOVE LETTER TYPING */
-const letterLines=[
+/* typing love letter */
+const lines=[
   "Dear Rashiii,",
   "",
   "Jab se tum meri zindagi me aayi ho,",
   "har din thoda zyada khoobsurat lagta hai ❤️",
   "",
-  "Tumhari smile meri kamzori hai,",
-  "aur tumhari presence meri strength.",
-  "",
-  "Main wada karta hoon,",
-  "har pal tumhara saath nibhaunga 💍",
-  "",
-  "Aaj main sirf propose nahi kar raha,",
-  "apna dil tumhe de raha hoon…",
-  "hamesha ke liye 💖",
+  "Tum meri aadat bhi ho,",
+  "aur meri sabse pyari choice bhi 💍",
   "",
   "— Yours Forever"
 ];
-
-let line=0,char=0;
-
+let l=0,c=0;
 function showLetter(){
   document.getElementById("p4").classList.remove("active");
   document.getElementById("letter").classList.add("active");
-
   document.getElementById("letterText").innerHTML="";
   document.getElementById("letterEnd").style.display="none";
-  line=0;char=0;
-  typeLetter();
+  l=0;c=0;
+  type();
 }
-
-function typeLetter(){
+function type(){
   const box=document.getElementById("letterText");
-  if(line<letterLines.length){
-    if(char<letterLines[line].length){
-      box.innerHTML+=letterLines[line].charAt(char);
-      char++;
-      setTimeout(typeLetter,40);
+  if(l<lines.length){
+    if(c<lines[l].length){
+      box.innerHTML+=lines[l].charAt(c++);
+      setTimeout(type,40);
     }else{
       box.innerHTML+="<br>";
-      char=0;line++;
-      setTimeout(typeLetter,500);
+      c=0;l++;
+      setTimeout(type,500);
     }
   }else{
     document.getElementById("letterEnd").style.display="block";
